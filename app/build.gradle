@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android' //依赖Realm数据库，插件化依赖
 
 android {
     compileSdkVersion 26
