@@ -96,7 +96,13 @@ public class CommonJsonCallback implements Callback {
         return tempList;
     }
 
+    /**
+     * 处理服务器返回的响应数据
+     *
+     * @param responseObj
+     */
     private void handleResponse(Object responseObj) {
+        //为了保证代码的健壮性
         if (responseObj == null || responseObj.toString().trim().equals("")) {
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             return;
@@ -107,17 +113,22 @@ public class CommonJsonCallback implements Callback {
              * 协议确定后看这里如何修改
              */
             JSONObject result = new JSONObject(responseObj.toString());
+            //不需要解析，直接返回数据到应用层
             if (mClass == null) {
                 mListener.onSuccess(result);
             } else {
+                //将json对象转化为实体对象
                 Object obj = ResponseEntityToModule.parseJsonObjectToModule(result, mClass);
+                //标明正确的转为了实体对象
                 if (obj != null) {
                     mListener.onSuccess(obj);
                 } else {
+                    //返回的不是合法的json
                     mListener.onFailure(new OkHttpException(JSON_ERROR, EMPTY_MSG));
                 }
             }
         } catch (Exception e) {
+            //将服务器返回给我们的异常回调到应用处去处理
             mListener.onFailure(new OkHttpException(OTHER_ERROR, e.getMessage()));
             e.printStackTrace();
         }

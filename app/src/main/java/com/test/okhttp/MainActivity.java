@@ -6,6 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.test.okhttp.listener.DisposeDataHandle;
+import com.test.okhttp.listener.DisposeDataListener;
+import com.test.okhttp.request.CommonRequest;
+import com.test.okhttp.response.CommonJsonCallback;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -37,9 +42,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sendRequest();
                 break;
             case R.id.button2:
-
+                fengzhuangTest();
                 break;
         }
+    }
+
+    private void fengzhuangTest() {
+        CommentOkHttpClient.sendRequest(CommonRequest.createGetRequest("http://www.imooc.com",null),
+                new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener() {
+                    @Override
+                    public void onSuccess(Object responseObj) {
+                        Toast.makeText(MainActivity.this,"成功了",Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Object reasonObj) {
+                        Toast.makeText(MainActivity.this,"失败了",Toast.LENGTH_SHORT).show();
+
+                    }
+                })));
     }
 
     private void sendRequest() {

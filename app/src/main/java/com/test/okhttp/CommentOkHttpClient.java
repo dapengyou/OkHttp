@@ -2,6 +2,7 @@ package com.test.okhttp;
 
 
 import com.test.okhttp.https.HttpsUtils;
+import com.test.okhttp.response.CommonJsonCallback;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,7 +58,7 @@ public class CommentOkHttpClient {
      * @return
      */
 
-    public static Call sendRequest(Request request, Callback commCallback) {
+    public static Call sendRequest(Request request, CommonJsonCallback commCallback) {
         Call call = mOkHttpClient.newCall(request);
         call.enqueue(commCallback);
         return call;
