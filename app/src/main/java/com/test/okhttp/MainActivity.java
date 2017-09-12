@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void fengzhuangTest() {
-        CommentOkHttpClient.sendRequest(CommonRequest.createGetRequest("http://www.imooc.com",null),
+        CommentOkHttpClient.sendRequest(CommonRequest.createGetRequest("http://api.map.baidu.com/telematics/v3/weather?location=嘉兴&output=json&ak=5slgyqGDENN7Sy7pw29IUvrZ",null),
                 new CommonJsonCallback(new DisposeDataHandle(new DisposeDataListener() {
                     @Override
                     public void onSuccess(Object responseObj) {
