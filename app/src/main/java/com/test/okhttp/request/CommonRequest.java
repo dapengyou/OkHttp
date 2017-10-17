@@ -39,7 +39,7 @@ public class CommonRequest {
         FormBody.Builder mFormBodyBuild = new FormBody.Builder();
         if (params != null) {
             for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
-                //将请求参数便利添加到我们的请求构件类中
+                //将请求参数遍历添加到我们的请求构件类中
                 mFormBodyBuild.add(entry.getKey(), entry.getValue());
             }
         }
@@ -96,7 +96,7 @@ public class CommonRequest {
         }
         Headers mHeader = mHeaderBuild.build();
         return new Request.Builder().
-                url(urlBuilder.substring(0, urlBuilder.length() - 1))
+                url(urlBuilder.substring(0, urlBuilder.length() - 1)) //去掉多余的&符
                 .get()
                 .headers(mHeader)
                 .build();
